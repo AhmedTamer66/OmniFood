@@ -25,10 +25,10 @@
 
         <nav class="main-nav">
             <ul class="main-nav-list">
-                <li><a class="main-nav-link clickable" href="#how">How it works</a></li>
-                <li><a class="main-nav-link clickable" href="#meals">Meals</a></li>
-                <li><a class="main-nav-link clickable" href="#testimonials">Testimonials</a></li>
-                <li><a class="main-nav-link clickable" href="#pricing">Pricing</a></li>
+                <li><a class="main-nav-link clickable" href="#how" data-ignore-modal="true">How it works </a></li>
+                <li><a class="main-nav-link clickable" href="#meals" data-ignore-modal="true">Meals</a></li>
+                <li><a class="main-nav-link clickable" href="#testimonials" data-ignore-modal="true">Testimonials</a></li>
+                <li><a class="main-nav-link clickable" href="#pricing" data-ignore-modal="true">Pricing</a></li>
                 <li><a class="main-nav-link nav-cta clickable" href="#cta">Try for free</a></li>
             </ul>
         </nav>
@@ -52,7 +52,7 @@
                         nutritional needs.
                     </p>
                     <a href="#cta" class="btn btn--full margin-right-sm clickable">Start eating well</a>
-                    <a href="#how" class="btn btn--outline clickable">Learn more &darr;</a>
+                    <a href="#how" class="btn btn--outline clickable" data-ignore-modal="true">Learn more &darr;</a>
                     <div class="delivered-meals">
                         <div class="delivered-imgs">
                             <img src="../img/customers/customer-1.jpg" alt="Customer photo" />
@@ -100,33 +100,29 @@
     </main>
 
     <script>
+  const clickableElements = document.querySelectorAll('.clickable');
+  const modal = document.getElementById('modal');
 
-        const clickableElements = document.querySelectorAll('.clickable');
+  clickableElements.forEach(function(element) {
+    element.addEventListener('click', function(event) {
+      if (element.dataset.ignoreModal === "true") return;
+      if (event.target.tagName.toLowerCase() === 'a') {
+        event.preventDefault();
+      }
+      modal.style.display = "block";
+    });
+  });
+  const closeBtn = document.getElementById('close-modal');
+  closeBtn.addEventListener('click', function () {
+    modal.style.display = "none";
+  });
+  window.addEventListener('click', function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
 
-        const modal = document.getElementById("modal");
-        const closeModalBtn = document.getElementById("close-modal");
-
-        clickableElements.forEach(function(element) {
-            element.addEventListener('click', function(event) {
-
-                if (event.target.tagName.toLowerCase() === 'a') {
-                    event.preventDefault();
-                }
-
-                modal.style.display = "block";
-            });
-        });
-
-        closeModalBtn.addEventListener("click", function() {
-            modal.style.display = "none";
-        });
-
-        window.addEventListener("click", function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        });
-    </script>
 </body>
 
 </html>
